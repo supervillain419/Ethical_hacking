@@ -1,4 +1,3 @@
 # Ethical_hacking
-Different types of  linux scirpting
 Use this script in Linux.
-It's a simple way of making a reactive script to help you brute force a networks password with a handshake.
+It's a simple reactive script using tools like aircrack-ng and macchanger to help you brute force a networks password with a handshake.
