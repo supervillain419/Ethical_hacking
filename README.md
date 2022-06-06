@@ -1,4 +1,4 @@
 # Ethical_hacking
-Use this script in Linux.
-It's a simple reactive script using tools like aircrack-ng and macchanger to help you brute force a networks password with a handshake.
+## Bash Script.
+### It's a simple reactive script using aircrack-ng and macchanger to help you brute force a networks password with a handshake and spoof your MAC Address.
 <img src=wi-fighter.png >
